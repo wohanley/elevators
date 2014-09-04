@@ -11,7 +11,7 @@ object Elevators {
 
   def main(args: Array[String]) = {
     
-    val requests = List(12,4,34,452,124,234,43,56,34,25,21)
+    val requests = for { i <- List.range(1, 100) } yield random.nextInt(500)
     
     val fcfs = new FirstComeFirstServedQueue(Queue.concat(requests))
     val sstf = new ShortestSeekQueue(0, requests)
