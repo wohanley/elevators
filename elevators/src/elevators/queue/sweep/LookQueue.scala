@@ -14,9 +14,20 @@ class LookQueue(position: Int, requests: List[Int],
     
     val compare = eligibleRequestFilter(position, direction)
     
-    val service = requests
-      .filter(req => compare(req))
-      .sortBy(difference(position)_).head
+    val eligibleRequests = requests.filter(req => compare(req))
+      
+    val service = if (eligibleRequests.nonEmpty) {
+      eligibleRequests.sortBy(difference(position)_).head
+    } else direction match {
+      /*
+       * If I'm looking up and there are no requests higher than my current
+       * position, I need to turn around and head down, and the first request
+       * I meet in that direction must be the largest in the list.
+       */
+      case Up => requests.max
+      // converse logic here
+      case Down => requests.min
+    }
         
     return (service, new LookQueue(service,
       requests.filter(req => req != service), newDirection(service)))

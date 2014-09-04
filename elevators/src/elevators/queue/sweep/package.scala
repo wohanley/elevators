@@ -14,4 +14,8 @@ package object sweep {
     ScanQueue = {
     return new ScanQueue(0, lowerBound, upperBound, requests, Up)
   }
+  
+  def createLookQueue(requests: List[Int]): LookQueue = {
+    return new LookQueue(0, requests, Up)
+  }
 }

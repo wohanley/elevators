@@ -16,6 +16,7 @@ object Elevators {
     val fcfs = new FirstComeFirstServedQueue(Queue.concat(requests))
     val sstf = new ShortestSeekQueue(0, requests)
     val scan = createScanQueue(0, 500, requests)
+    val look = createLookQueue(requests)
     
     def service(queue: RequestQueue[Int]): Unit = {
       val nextQueue = queue.dequeue
@@ -23,6 +24,6 @@ object Elevators {
       service(nextQueue._2.enqueue(random.nextInt(500)))
     }
     
-    service(scan)
+    service(look)
   }
 }
