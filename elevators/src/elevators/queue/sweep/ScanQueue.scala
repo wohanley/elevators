@@ -3,7 +3,7 @@ package elevators.queue.sweep
 import elevators._
 import elevators.queue.RequestQueue
 
-class ScanQueue(position: Int, lowerBound: Int, upperBound: Int,
+case class ScanQueue(position: Int, lowerBound: Int, upperBound: Int,
     requests: List[Int], direction: SeekDirection) extends RequestQueue[Int] {
   
   override def enqueue(request: Int): ScanQueue = {

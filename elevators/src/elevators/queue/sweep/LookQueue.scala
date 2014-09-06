@@ -3,7 +3,7 @@ package elevators.queue.sweep
 import elevators._
 import elevators.queue.RequestQueue
 
-class LookQueue(position: Int, requests: List[Int],
+case class LookQueue(position: Int, requests: List[Int],
   direction: SeekDirection) extends RequestQueue[Int] {
 
   override def enqueue(request: Int): LookQueue = {

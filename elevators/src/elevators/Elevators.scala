@@ -13,8 +13,8 @@ object Elevators {
     
     val requests = for { i <- List.range(1, 100) } yield random.nextInt(500)
     
-    val fcfs = new FirstComeFirstServedQueue(Queue.concat(requests))
-    val sstf = new ShortestSeekQueue(0, requests)
+    val fcfs = FirstComeFirstServedQueue(Queue.concat(requests))
+    val sstf = ShortestSeekQueue(0, requests)
     val scan = createScanQueue(0, 500, requests)
     val look = createLookQueue(requests)
     
@@ -24,6 +24,6 @@ object Elevators {
       service(nextQueue._2.enqueue(random.nextInt(500)))
     }
     
-    service(look)
+    service(fcfs)
   }
 }
