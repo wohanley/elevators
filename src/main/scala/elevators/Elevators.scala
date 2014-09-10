@@ -1,9 +1,9 @@
 package elevators
 
-import scala.collection.immutable.Queue
+import elevators.ui.MainPanel
 import java.util.Random
-import elevators.queue._
-import elevators.queue.sweep._
+import javax.swing.JFrame
+import javax.swing.JPanel
 
 object Elevators {
   
@@ -11,19 +11,15 @@ object Elevators {
 
   def main(args: Array[String]) = {
     
-    val requests = for { i <- List.range(1, 100) } yield random.nextInt(500)
-    
-    val fcfs = FirstComeFirstServedQueue(Queue.concat(requests))
-    val sstf = ShortestSeekQueue(0, requests)
-    val scan = createScanQueue(0, 500, requests)
-    val look = createLookQueue(requests)
-    
-    def service(queue: RequestQueue[Int]): Unit = {
-      val nextQueue = queue.dequeue
-      println(nextQueue._1)
-      service(nextQueue._2.enqueue(random.nextInt(500)))
-    }
-    
-    service(fcfs)
+    val frame = new JFrame("Elevators")
+    val mainPanel = new MainPanel()
+    frame.setContentPane(mainPanel)
+    frame.pack()
+    frame.setResizable(false)
+    frame.setVisible(true)
   }
 }
+
+
+
+
