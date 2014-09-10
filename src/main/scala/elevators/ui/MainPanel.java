@@ -6,7 +6,7 @@ import javax.swing.JPanel;
 import java.util.LinkedList;
 import java.util.List;
 
-public class MainPanel extends JPanel implements View<Integer> {
+public class MainPanel extends JPanel implements View {
 
     private final LinkedList<Integer> floorsWaiting;
 
@@ -33,7 +33,7 @@ public class MainPanel extends JPanel implements View<Integer> {
     }
 
     private void drawWaitingFloor(Graphics graphics, int request) {
-    
+	graphics.drawOval(5, request * 5, 4, 4);
     }
 }
 
