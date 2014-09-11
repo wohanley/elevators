@@ -7,10 +7,17 @@ trait RequestQueue[T] {
   def isEmpty: Boolean
 }
 
-object RequestQueueExt {
-  implicit object RequestQueueIterator[T] extends Iterator[RequestQueue[T]] {
-    def hasNext[T](queue: RequestQueue[T]): Boolean = {
-      return queue.head != null
-    }
+class RequestQueueIterator[T](queue: RequestQueue[T]) extends Iterator[T] {
+
+  var currentQueue = queue
+
+  override def hasNext: Boolean = {
+    return currentQueue.isEmpty
+  }
+
+  override def next: T = {
+    val dequeued = currentQueue.dequeue
+    currentQueue = dequeued._2
+    return dequeued._1
   }
 }
