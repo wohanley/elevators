@@ -12,7 +12,7 @@ import javax.swing.JPanel
 class MainPanel(requests: RequestQueue[Int]) extends JPanel with View {
 
   val waitingRequests = new WaitingDrawer(requests)
-  this.setPreferredSize(new Dimension(200, 500))
+  this.add(waitingRequests)
 
   override def drawQueue(requests: RequestQueue[Int]) = {
     waitingRequests.loadRequests(requests)
@@ -20,12 +20,10 @@ class MainPanel(requests: RequestQueue[Int]) extends JPanel with View {
   }
 
   override def drawRequest(request: Int): Unit = {
-    println("Drawing request: " + request)
     this.repaint()
   }
 
   override def drawService(request: Int): Unit = {
-    println("Drawing service: " + request)
     this.repaint()
   }
 

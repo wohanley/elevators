@@ -6,11 +6,11 @@ import elevators.queue.RequestQueue
 case class LookQueue(position: Int, requests: List[Int],
   direction: SeekDirection) extends RequestQueue[Int] {
 
-  private val compare = eligibleRequestFilter(position, direction)
+  private lazy val compare = eligibleRequestFilter(position, direction)
   
-  private val eligibleRequests = requests.filter(req => compare(req))
+  private lazy val eligibleRequests = requests.filter(req => compare(req))
   
-  private val service = if (eligibleRequests.nonEmpty) {
+  private lazy val service = if (eligibleRequests.nonEmpty) {
     eligibleRequests.sortBy(difference(position)_).head
   } else direction match {
     /*

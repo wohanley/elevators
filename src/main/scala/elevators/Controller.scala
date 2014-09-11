@@ -15,12 +15,14 @@ class Controller(requests: RequestQueue[Int], view: View) {
   def enqueue(request: Int): Unit = {
     this.queue = this.queue.enqueue(request)
     view.drawRequest(request)
+    view.drawQueue(this.queue)
   }
 
   def dequeue(): Unit = {
     val dequeue = this.queue.dequeue
     this.queue = dequeue._2
     view.drawService(dequeue._1)
+    view.drawQueue(this.queue)
   }
 }
 
