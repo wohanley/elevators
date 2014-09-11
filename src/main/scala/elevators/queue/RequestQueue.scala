@@ -12,7 +12,7 @@ class RequestQueueIterator[T](queue: RequestQueue[T]) extends Iterator[T] {
   var currentQueue = queue
 
   override def hasNext: Boolean = {
-    return currentQueue.isEmpty
+    return !currentQueue.isEmpty
   }
 
   override def next: T = {
