@@ -27,7 +27,7 @@ class MainPanel(requests: RequestQueue[Int]) extends JPanel with View {
     this.repaint()
   }
 
-  override def paint(graphics: Graphics): Unit = {
+  override def paintComponent(graphics: Graphics): Unit = {
     waitingRequests.repaint()
   }
 }

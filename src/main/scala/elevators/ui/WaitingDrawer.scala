@@ -2,6 +2,7 @@ package elevators.ui
 
 import elevators.queue.RequestQueue
 import elevators.queue.RequestQueueIterator
+import java.awt.Color
 import java.awt.Dimension
 import java.awt.Graphics
 import javax.swing.JPanel
@@ -16,7 +17,10 @@ class WaitingDrawer(requests: RequestQueue[Int]) extends JPanel with DrawsWaitin
     waiting = requests
   }
 
-  override def paint(graphics: Graphics): Unit = {
+  override def paintComponent(graphics: Graphics): Unit = {
+    graphics.setColor(Color.GRAY)
+    graphics.fillRect(0, 0, this.getWidth(), this.getHeight())
+    graphics.setColor(Color.WHITE)
     val iter = new RequestQueueIterator(waiting)
     while (iter.hasNext) {
       val next = iter.next
@@ -25,7 +29,7 @@ class WaitingDrawer(requests: RequestQueue[Int]) extends JPanel with DrawsWaitin
   }
 
   private def drawWaitingFloor(graphics: Graphics, request: Int): Unit = {
-    graphics.drawOval(5, request * 5, 4, 4)
+    graphics.fillOval(5, request * 5, 4, 4)
   }
 }
 
