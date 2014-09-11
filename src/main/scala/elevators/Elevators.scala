@@ -28,7 +28,7 @@ object Elevators {
 
     while (true) {
       Thread.sleep(200)
-      mainPanel.randomRequest()
+      //mainPanel.randomRequest()
       mainPanel.dequeue
     }
   }

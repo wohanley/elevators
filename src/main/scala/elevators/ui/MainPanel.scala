@@ -19,9 +19,6 @@ import scala.util.Random
  */ 
 class MainPanel(initialRequests: RequestQueue[Int]) extends JPanel with View {
 
-  //val waitingRequests = new WaitingDrawer(requests)
-  //this.add(waitingRequests)
-
   var requests = initialRequests
 
   this.setPreferredSize(new Dimension(200, 500))
@@ -48,10 +45,7 @@ class MainPanel(initialRequests: RequestQueue[Int]) extends JPanel with View {
     this.requests = dequeued._2
   }
 
-  override def drawQueue(requests: RequestQueue[Int]): Unit = {
-//    requests.loadRequests(requests)
-//    requests.repaint()
-  }
+  override def drawQueue(requests: RequestQueue[Int]): Unit = {}
 
   override def drawRequest(request: Int): Unit = {
     this.repaintRegion(request, region => region.requested())
@@ -70,7 +64,6 @@ class MainPanel(initialRequests: RequestQueue[Int]) extends JPanel with View {
   }
 
   override def paintComponent(graphics: Graphics): Unit = {
-    //requests.repaint()
     for (region <- this.requestRegions) {
       region._2.repaint()
     }
