@@ -23,7 +23,7 @@ class MainPanel(initialRequests: RequestQueue[Int]) extends JPanel with View {
 
   this.setPreferredSize(new Dimension(200, 500))
   val gridLayout = new GridLayout(0, 1)
-  gridLayout.setVgap(2)
+  gridLayout.setVgap(1)
   this.setLayout(gridLayout)
 
   var requestRegions = HashMap[Int, RequestRegion]()
