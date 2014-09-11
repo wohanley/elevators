@@ -27,8 +27,7 @@ object Elevators {
     frame.setVisible(true)
 
     while (true) {
-      Thread.sleep(200)
-      //mainPanel.randomRequest()
+      Thread.sleep(600)
       mainPanel.dequeue
     }
   }

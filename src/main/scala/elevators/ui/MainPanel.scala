@@ -41,12 +41,12 @@ class MainPanel(initialRequests: RequestQueue[Int]) extends JPanel with View {
   }
 
   def dequeue: Unit = {
-    val dequeued = this.requests.dequeue
-    this.drawService(dequeued._1) // sleep?
-    this.requests = dequeued._2
+    if (!this.requests.isEmpty) {
+      val dequeued = this.requests.dequeue
+      this.drawService(dequeued._1) // sleep?
+      this.requests = dequeued._2
+    }
   }
-
-  override def drawQueue(requests: RequestQueue[Int]): Unit = {}
 
   override def drawRequest(request: Int): Unit = {
     this.repaintRegion(request, region => region.requested())
