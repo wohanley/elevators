@@ -5,6 +5,17 @@ import elevators.queue.RequestQueue
 
 case class ScanQueue(position: Int, lowerBound: Int, upperBound: Int,
     requests: List[Int], direction: SeekDirection) extends RequestQueue[Int] {
+
+  private lazy val compare = eligibleRequestFilter(position, direction)
+  
+  private lazy val eligibleRequests = requests.filter(req => compare(req))
+
+  private lazy val service = if (eligibleRequests.nonEmpty) {
+    eligibleRequests.sortBy(difference(position)_).head
+  } else direction match {
+    case Up => upperBound
+    case Down => lowerBound
+  }
   
   override def enqueue(request: Int): ScanQueue = {
     return new ScanQueue(position, lowerBound, upperBound, request :: requests,
@@ -12,21 +23,11 @@ case class ScanQueue(position: Int, lowerBound: Int, upperBound: Int,
   }
   
   override def dequeue: (Int, RequestQueue[Int]) = {
-    
-    val compare = eligibleRequestFilter(position, direction)
-    
-    val eligibleRequests = requests.filter(req => compare(req))
-
-    val service = if (eligibleRequests.nonEmpty) {
-      eligibleRequests.sortBy(difference(position)_).head
-    } else direction match {
-      case Up => upperBound
-      case Down => lowerBound
-    }
-        
-    return (service, new ScanQueue(service, lowerBound, upperBound,
-      requests.filter(req => req != service), newDirection(service)))
+    return (this.service, new ScanQueue(this.service, lowerBound, upperBound,
+      requests.filter(req => req != this.service), newDirection(this.service)))
   }
+
+  override def head: Int = this.service
   
   def newDirection(service: Int): SeekDirection = direction match {
     case Up => if (service == upperBound) Down else Up
