@@ -29,7 +29,7 @@ class WaitingDrawer(requests: RequestQueue[Int]) extends JPanel with DrawsWaitin
   }
 
   private def drawWaitingFloor(graphics: Graphics, request: Int): Unit = {
-    graphics.fillOval(5, request * 5, 4, 4)
+    graphics.fillRect(5, request * 12, this.getWidth() - 10, 10)
   }
 }
 

@@ -31,7 +31,7 @@ object Elevators {
     frame.setVisible(true)
 
     while (true) {
-      Thread.sleep(1000);
+      Thread.sleep(200);
       controller.enqueue(random.nextInt(50));
       controller.dequeue();
     }
