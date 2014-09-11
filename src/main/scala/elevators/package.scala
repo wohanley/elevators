@@ -1,5 +1,6 @@
 package object elevators {
 
+  import elevators.queue.RequestQueue
   import scala.util.Random
 
   abstract class SeekDirection
@@ -20,11 +21,11 @@ package object elevators {
    */
   def lte[T <% Ordered[T]](x: T)(y: T): Boolean = x >= y
 
-  def generateRequest(controller: Controller, gen: Random): Controller = {
+  def generateRequest(queue: RequestQueue[Int], gen: Random): Int = {
     var request = gen.nextInt(50)
-    while (controller.requests.contains(request)) {
+    while (queue.contains(request)) {
       request = gen.nextInt(50)
     }
-    return controller.enqueue(request)
+    return request
   }
 }
