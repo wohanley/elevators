@@ -33,6 +33,7 @@ object Elevators {
     while (true) {
       Thread.sleep(200)
       controller = generateRequest(controller, random)
+      Thread.sleep(200)
       controller = controller.dequeue._2
     }
   }
