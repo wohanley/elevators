@@ -34,5 +34,7 @@ case class ScanQueue(position: Int, lowerBound: Int, upperBound: Int,
 
   override def head: Int = this.service
 
+  override def contains(request: Int): Boolean = requests.contains(request)
+
   override def isEmpty: Boolean = requests.isEmpty
 }

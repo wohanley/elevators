@@ -3,44 +3,19 @@ package elevators
 import elevators.queue.RequestQueue
 import elevators.ui.View
 
-/**
- * It strikes me that Controller also conforms to the View trait. Is this a
- * good sign, or a bad one? (It could, that is)
- * TODO: add foreach to RequestQueue so that I can initialize this properly ()
- */ 
-class Controller(requests: RequestQueue[Int], view: View) {
+case class Controller(requests: RequestQueue[Int], view: View) {
 
-  private var queue = requests
-
-  def enqueue(request: Int): Unit = {
-    this.queue = this.queue.enqueue(request)
+  def enqueue(request: Int): Controller = {
+    val enqueued = requests.enqueue(request)
     view.drawRequest(request)
-    view.drawQueue(this.queue)
+    view.drawQueue(enqueued)
+    return Controller(enqueued, view)
   }
 
-  def dequeue(): Unit = {
-    val dequeue = this.queue.dequeue
-    this.queue = dequeue._2
+  def dequeue(): (Int, Controller) = {
+    val dequeue = requests.dequeue
     view.drawService(dequeue._1)
-    view.drawQueue(this.queue)
+    view.drawQueue(dequeue._2)
+    return (dequeue._1, Controller(dequeue._2, view))
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

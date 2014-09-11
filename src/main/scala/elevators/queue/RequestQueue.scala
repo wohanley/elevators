@@ -4,6 +4,7 @@ trait RequestQueue[T] {
   def enqueue(request: T): RequestQueue[T]
   def dequeue: (T, RequestQueue[T])
   def head: T
+  def contains(request: T): Boolean
   def isEmpty: Boolean
 }
 

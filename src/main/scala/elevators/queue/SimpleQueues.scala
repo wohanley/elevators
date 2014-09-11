@@ -22,6 +22,8 @@ case class FirstComeFirstServedQueue[T <% Ordered[T]](requests: Queue[T])
 
   override def head: T = requests.head
 
+  override def contains(request: T): Boolean = requests.contains(request)
+
   override def isEmpty: Boolean = requests.isEmpty
 }
 
@@ -42,6 +44,8 @@ case class ShortestSeekQueue(position: Int, requests: List[Int])
   }
 
   override def head: Int = requests.head
+
+  override def contains(request: Int): Boolean = requests.contains(request)
 
   override def isEmpty: Boolean = requests.isEmpty
 }

@@ -18,9 +18,9 @@ object Elevators {
 
     // the Controller constructor doesn't do what I'd like. We need to add all
     // our elements manually.
-    val controller = new Controller(queue, mainPanel)
+    var controller = Controller(queue, mainPanel)
     for (i <- List.range(0, 10)) {
-      controller.enqueue(random.nextInt(50))
+      controller = controller.enqueue(random.nextInt(50))
     }
 
     val frame = new JFrame("Elevators")
@@ -31,9 +31,9 @@ object Elevators {
     frame.setVisible(true)
 
     while (true) {
-      Thread.sleep(200);
-      controller.enqueue(random.nextInt(50));
-      controller.dequeue();
+      Thread.sleep(200)
+      controller = generateRequest(controller, random)
+      controller = controller.dequeue._2
     }
   }
 }
