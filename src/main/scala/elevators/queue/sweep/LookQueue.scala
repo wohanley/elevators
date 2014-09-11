@@ -32,11 +32,13 @@ case class LookQueue(position: Int, requests: List[Int],
       requests.filter(req => req != this.service), newDirection(this.service)))
   }
 
-  override def head: Int = this.service
-  
   def newDirection(service: Int): SeekDirection =
     direction match {
       case Up => if (service == requests.max) Down else Up
       case Down => if (service == requests.min) Up else Down
     }
+
+  override def head: Int = this.service
+
+  override def isEmpty: Boolean = requests.isEmpty
 }
