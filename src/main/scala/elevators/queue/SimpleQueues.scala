@@ -19,6 +19,8 @@ case class FirstComeFirstServedQueue[T <% Ordered[T]](requests: Queue[T])
     val dequeued = requests.dequeue
     return (dequeued._1, new FirstComeFirstServedQueue(dequeued._2))
   }
+
+  override def head: T = requests.head
 }
 
 /**
@@ -26,13 +28,16 @@ case class FirstComeFirstServedQueue[T <% Ordered[T]](requests: Queue[T])
  */
 case class ShortestSeekQueue(position: Int, requests: List[Int])
   extends RequestQueue[Int] {
-  
+
+  val sortedRequests = requests.sortBy(difference(position)_)
+
   override def enqueue(request: Int): RequestQueue[Int] = {
     return new ShortestSeekQueue(position, request :: requests)
   }
   
   override def dequeue: (Int, RequestQueue[Int]) = {
-    val sorted = requests.sortBy(difference(position)_)
-    return (sorted.head, new ShortestSeekQueue(sorted.head, sorted.tail))
+    return (sortedRequests.head, new ShortestSeekQueue(sortedRequests.head, sortedRequests.tail))
   }
+
+  override def head: Int = requests.head
 }
