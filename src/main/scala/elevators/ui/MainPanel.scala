@@ -3,7 +3,6 @@ package elevators.ui
 import elevators._
 import elevators.queue.RequestQueue
 import elevators.util.first
-import elevators.util.GifExporter
 import java.awt.Container
 import java.awt.Dimension
 import java.awt.Graphics
@@ -35,8 +34,6 @@ class MainPanel(initialRequests: RequestQueue[Int]) extends JPanel with View {
     this.requestRegions += i -> region
   }
 
-  val giffer = new GifExporter()
-
   def enqueue(request: Int): Unit = {
     this.drawRequest(request)
     this.requests = this.requests.enqueue(request)
@@ -62,7 +59,6 @@ class MainPanel(initialRequests: RequestQueue[Int]) extends JPanel with View {
     this.requestRegions.get(request).map(region => {
       val result = f(region)
       region.repaint()
-      giffer.gif(this)
       return Some(result)
     })
   }
