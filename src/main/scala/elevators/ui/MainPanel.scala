@@ -35,7 +35,6 @@ class MainPanel(initialRequests: RequestQueue[Int]) extends JPanel with View {
   }
 
   def enqueue(request: Int): Unit = {
-    println("MainPanel.enqueue " + request)
     this.drawRequest(request)
     this.requests = this.requests.enqueue(request)
   }
@@ -83,7 +82,6 @@ object Interaction {
 
   class DelegateMouseListener(clicked: () => Unit) extends MouseListener {
     override def mouseClicked(event: MouseEvent) = {
-      println("click")
       clicked()
     }
     override def mouseEntered(event: MouseEvent): Unit = ()
